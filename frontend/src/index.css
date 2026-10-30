@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  background-color: #f4f8f5;
+  color: #1e293b;
+}
+
+@media print {
+  body * { visibility: hidden; }
+  #printable-report, #printable-report * { visibility: visible; }
+  #printable-report { position: absolute; left: 0; top: 0; width: 100%; }
+  .no-print { display: none !important; }
+}

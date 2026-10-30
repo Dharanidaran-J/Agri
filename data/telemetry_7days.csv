@@ -1,0 +1,29 @@
+field_id,crop,scenario,day_index,date,soil_N,soil_P,soil_K,soil_temperature_c,soil_moisture_pct,soil_ph,electrical_conductivity_ds_m,rainfall_recorded_mm
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,1,2026-10-24,88,45,42,28.5,42.0,6.5,3.2,0.0
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,2,2026-10-25,82,44,41,29.1,38.5,6.5,3.1,0.0
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,3,2026-10-26,75,43,40,30.2,34.0,6.4,3.0,0.0
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,4,2026-10-27,69,41,39,31.0,29.5,6.3,2.9,0.0
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,5,2026-10-28,61,40,38,32.4,25.0,6.2,2.8,0.0
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,6,2026-10-29,54,38,36,33.1,20.5,6.1,2.6,0.0
+FIELD_01_RICE,rice,Severe Moisture & Nitrogen Depletion,7,2026-10-30,46,36,35,34.0,16.2,6.0,2.5,0.0
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,1,2026-10-24,85,42,22,27.0,68.0,6.4,2.8,4.5
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,2,2026-10-25,83,38,21,28.2,65.0,6.3,2.8,0.0
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,3,2026-10-26,80,34,20,29.5,61.5,6.3,2.7,0.0
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,4,2026-10-27,78,30,19,31.0,57.0,6.2,2.6,0.0
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,5,2026-10-28,75,26,18,32.5,52.0,6.2,2.5,0.0
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,6,2026-10-29,73,22,18,33.8,48.0,6.1,2.4,0.0
+FIELD_02_MAIZE,maize,High Temperature & Phosphorus Deficit,7,2026-10-30,70,19,17,34.5,43.5,6.1,2.3,0.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,1,2026-10-24,125,48,20,24.2,78.0,6.8,2.4,0.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,2,2026-10-25,123,47,20,24.5,77.5,6.8,2.4,0.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,3,2026-10-26,120,46,19,24.8,76.0,6.9,2.5,0.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,4,2026-10-27,118,45,19,25.1,75.0,6.8,2.5,0.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,5,2026-10-28,115,44,18,25.3,73.5,6.8,2.6,0.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,6,2026-10-29,113,44,18,25.0,78.0,6.7,2.5,12.0
+FIELD_03_COTTON,cotton,Balanced Soil with Upcoming Rain Risk,7,2026-10-30,110,42,17,24.8,82.0,6.7,2.5,28.5
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,1,2026-10-24,35,68,80,19.5,35.0,7.2,1.8,5.0
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,2,2026-10-25,34,67,80,19.2,45.0,7.1,1.9,15.0
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,3,2026-10-26,33,65,79,18.8,60.0,7.0,2.0,32.0
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,4,2026-10-27,32,63,78,18.5,75.0,6.9,2.2,28.0
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,5,2026-10-28,30,60,76,18.2,82.0,6.8,2.4,14.0
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,6,2026-10-29,29,58,75,18.0,86.0,6.7,2.5,8.0
+FIELD_04_CHICKPEA,chickpea,High Moisture Excess / Root Rot Alert,7,2026-10-30,28,56,75,17.8,89.5,6.6,2.6,12.0

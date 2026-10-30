@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriSense-X | Crop Stress Telemetry & Regional Farm Advisory</title>
+  <meta name="description" content="AI-Powered Smart Agriculture Platform. Sensor Readings In, An Actionable Farm Advisory Out.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       AgriSense-X Modern SaaS Theme (Deep Forest Green, Emerald, Mint & White)
+       ========================================================================== */
+    :root {
+      --agri-dark: #082717;
+      --agri-forest: #0b3d22;
+      --agri-forest-light: #134e2c;
+      --agri-emerald: #10b981;
+      --agri-emerald-dark: #059669;
+      --agri-mint: #34d399;
+      --agri-bg: #f4f8f5;
+      --agri-card: #ffffff;
+      --agri-border: #e2ece4;
+      --agri-text: #1e293b;
+      --agri-muted: #64748b;
+      --agri-rose: #e11d48;
+      --agri-amber: #d97706;
+      --agri-blue: #2563eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--agri-bg);
+      color: var(--agri-text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Layout */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 270px;
+      background: var(--agri-forest);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 40;
+    }
+
+    .brand-header {
+      padding: 22px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    }
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+    .brand-title span { color: var(--agri-mint); }
+    .brand-sub {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #a7f3d0;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-list {
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.75);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+      width: 100%;
+    }
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      border-left: 4px solid var(--agri-mint);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .nav-item-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-badge {
+      background: var(--agri-rose);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 9999px;
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .lang-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #a7f3d0;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .lang-select {
+      width: 100%;
+      background: var(--agri-forest-light);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow-y: auto;
+    }
+
+    .top-header {
+      background: var(--agri-card);
+      border-bottom: 1px solid var(--agri-border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+    }
+    .header-info-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      color: var(--agri-emerald-dark);
+      border: 1px solid #d1fae5;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .header-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-top: 4px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .farm-select-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .farm-select {
+      background: transparent;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      outline: none;
+    }
+    .btn-primary {
+      background: var(--agri-forest);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 6px rgba(11, 61, 34, 0.2);
+    }
+    .btn-primary:hover {
+      background: var(--agri-forest-light);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #ffffff;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .btn-secondary:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+
+    .view-container {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--agri-card);
+      border: 1px solid var(--agri-border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+    .card-desc {
+      font-size: 12px;
+      color: var(--agri-muted);
+      margin-top: 2px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--agri-border);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--agri-emerald-dark);
+      margin-top: 4px;
+    }
+
+    /* Irrigation Recommendation Banner */
+    .irrigation-banner {
+      background: linear-gradient(135deg, #0b3d22, #134e2c);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 6px 20px rgba(11, 61, 34, 0.25);
+    }
+    .banner-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+    .banner-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+    .banner-headline {
+      font-size: 18px;
+      font-weight: 800;
+      margin-top: 4px;
+      color: #ffffff;
+    }
+    .banner-text {
+      font-size: 13px;
+      color: #a7f3d0;
+      margin-top: 4px;
+      max-width: 720px;
+      line-height: 1.45;
+    }
+
+    /* Status Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-green { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .badge-yellow { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+    .badge-red { background: #ffe4e6; color: #be123c; border: 1px solid #fecdd3; }
+    .badge-blue { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+
+    /* SVG Chart */
+    .chart-container {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px 12px;
+    }
+
+    /* Sliders & Inputs */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #475569;
+    }
+    .form-control {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--agri-emerald);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+    .range-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 9999px;
+      accent-color: var(--agri-emerald);
+      cursor: pointer;
+    }
+
+    /* Data Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+    .data-table th {
+      background: #f8fafc;
+      color: #64748b;
+      font-weight: 700;
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+      white-space: nowrap;
+    }
+    .data-table tr:hover { background: #f8fafc; }
+
+    /* Print View */
+    @media print {
+      body * { visibility: hidden; }
+      #printable-report, #printable-report * { visibility: visible; }
+      #printable-report { position: absolute; left: 0; top: 0; width: 100%; }
+      .no-print { display: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      .app-container { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .irrigation-banner { flex-direction: column; align-items: flex-start; }
+      .top-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- ========================================================= -->
+    <!-- LEFT SIDEBAR                                              -->
+    <!-- ========================================================= -->
+    <aside class="sidebar no-print">
+      <div class="brand-header">
+        <div class="brand-logo">🌾</div>
+        <div>
+          <div class="brand-title">AgriSense<span>X</span></div>
+          <div class="brand-sub" id="lbl-brand-sub">Smart Farm Advisory</div>
+        </div>
+      </div>
+
+      <nav class="nav-list" id="nav-list">
+        <!-- Injected via JavaScript -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <label class="lang-label" id="lbl-lang-select">Regional Language</label>
+        <select class="lang-select" id="lang-dropdown" onchange="changeLanguage(this.value)">
+          <option value="English">English</option>
+          <option value="Hindi">हिन्दी (Hindi)</option>
+          <option value="Tamil">தமிழ் (Tamil)</option>
+          <option value="Telugu">తెలుగు (Telugu)</option>
+          <option value="Kannada">ಕನ್ನಡ (Kannada)</option>
+          <option value="Malayalam">മലയാളം (Malayalam)</option>
+        </select>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 11px; color: #a7f3d0;">
+          <span>● IoT Telemetry Online</span>
+          <span>v2.4.0</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================================================= -->
+    <!-- MAIN CONTENT VIEW AREA                                    -->
+    <!-- ========================================================= -->
+    <main class="main-content">
+      <header class="top-header no-print">
+        <div>
+          <div class="header-info-badge">
+            <span>●</span>
+            <span id="lbl-header-badge">AI Precision Agriculture Platform</span>
+          </div>
+          <h2 class="header-title" id="page-title">Dashboard</h2>
+        </div>
+
+        <div class="header-actions">
+          <div class="farm-select-box">
+            <span style="font-size: 16px;">🌱</span>
+            <select class="farm-select" id="farm-dropdown" onchange="selectFarm(this.value)">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <button class="btn-primary" onclick="openAddFarmModal()">
+            <span>+</span>
+            <span id="lbl-btn-add-farm">Add Farm</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="view-container" id="view-root">
+        <!-- Rendered dynamically by renderView() -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Backdrop for Add Farm -->
+  <div id="modal-container" style="display: none;"></div>
+
+  <!-- ========================================================= -->
+  <!-- COMPLETE STANDALONE SCRIPT ENGINE                         -->
+  <!-- ========================================================= -->
+  <script>
+    // -------------------------------------------------------------
+    // 1. Localization Dictionary (6 Languages)
+    // -------------------------------------------------------------
+    const I18N = {
+      English: {
+        tagline: "Sensor Readings In, An Actionable Farm Advisory Out.",
+        nav: {
+          dashboard: "Dashboard",
+          soil: "Soil Analytics",
+          weather: "Weather Monitoring",
+          stress: "Crop Stress Detection",
+          calc: "Fertilizer & Water Calculator",
+          advisory: "AI Farmer Advisory",
+          fleet: "Farm Management",
+          alerts: "Alerts Center",
+          reports: "Reports & Export",
+          settings: "Settings"
+        },
+        kpi: {
+          farms: "Monitored Farms",
+          sensors: "Active IoT Sensors",
+          moisture: "Avg Soil Moisture",
+          temp: "Avg Soil Temp",
+          ph: "Soil pH Level",
+          stress: "Crop Stress Status",
+          rain: "Rainfall Probability",
+          pump: "Micro-Pump Motor"
+        },
+        buttons: {
+          addFarm: "Add Farm",
+          calculate: "Calculate Dosages",
+          uploadCsv: "Upload CSV",
+          downloadCsv: "Download CSV",
+          printPdf: "Print / Export PDF",
+          listenVoice: "Listen to Voice Advisory",
+          stopVoice: "Stop Audio",
+          acknowledge: "Acknowledge"
+        }
+      },
+      Hindi: {
+        tagline: "सेंसर डेटा अंदर, सटीक कृषि परामर्श बाहर।",
+        nav: {
+          dashboard: "डैशबोर्ड",
+          soil: "मृदा विश्लेषण (7-दिन)",
+          weather: "मौसम एवं वर्षा जोखिम",
+          stress: "फसल तनाव पहचान",
+          calc: "उर्वरक एवं जल कैलकुलेटर",
+          advisory: "एआई किसान परामर्श",
+          fleet: "खेत एवं सेंसर प्रबंधन",
+          alerts: "अलर्ट केंद्र",
+          reports: "रिपोर्ट एवं डाउनलोड",
+          settings: "सेटिंग्स"
+        },
+        kpi: {
+          farms: "निगरानी वाले खेत",
+          sensors: "सक्रिय आईओटी सेंसर",
+          moisture: "औसत मिट्टी नमी",
+          temp: "औसत मिट्टी तापमान",
+          ph: "मिट्टी पीएच मान",
+          stress: "फसल तनाव स्थिति",
+          rain: "वर्षा की संभावना",
+          pump: "पंप मोटर स्थिति"
+        },
+        buttons: {
+          addFarm: "नया खेत जोड़ें",
+          calculate: "मात्रा की गणना करें",
+          uploadCsv: "CSV अपलोड करें",
+          downloadCsv: "CSV डाउनलोड",
+          printPdf: "पीडीएफ रिपोर्ट निकालें",
+          listenVoice: "ऑडियो परामर्श सुनें",
+          stopVoice: "ऑडियो बंद करें",
+          acknowledge: "स्वीकार करें"
+        }
+      },
+      Tamil: {
+        tagline: "சென்சார் அளவீடுகள் உள்ளே, உடனடி விவசாய ஆலோசனை வெளியே.",
+        nav: {
+          dashboard: "முகப்பு பலகை",
+          soil: "மண் பகுப்பாய்வு (7-நாள்)",
+          weather: "வானிலை & மழை ஆபத்து",
+          stress: "பயிர் அழுத்த கண்டறிதல்",
+          calc: "உரம் & பாசன கால்குலேட்டர்",
+          advisory: "விவசாய ஆலோசனை",
+          fleet: "பண்ணை மேலாண்மை",
+          alerts: "எச்சரிக்கை மையம்",
+          reports: "அறிக்கைகள் & பதிவிறக்கம்",
+          settings: "அமைப்புகள்"
+        },
+        kpi: {
+          farms: "கண்காணிக்கப்படும் பண்ணைகள்",
+          sensors: "இயங்கும் சென்சார்கள்",
+          moisture: "சராசரி மண் ஈரம்",
+          temp: "சராசரி மண் வெப்பம்",
+          ph: "மண் pH அளவு",
+          stress: "பயிர் அழுத்த நிலை",
+          rain: "மழை வாய்ப்பு",
+          pump: "மோட்டார் நிலை"
+        },
+        buttons: {
+          addFarm: "பண்ணை சேர்க்க",
+          calculate: "அளவை கணக்கிடு",
+          uploadCsv: "CSV பதிவேற்றுக",
+          downloadCsv: "CSV பதிவிறக்குக",
+          printPdf: "PDF அச்சிடுக",
+          listenVoice: "குரல் ஆலோசனை கேட்க",
+          stopVoice: "நிறுத்து",
+          acknowledge: "ஏற்றுக்கொள்"
+        }
+      },
+      Telugu: {
+        tagline: "సెన్సార్ రీడింగులు లోపలికి, తక్షణ రైతు సలహా బయటికి.",
+        nav: {
+          dashboard: "డాష్‌బోర్డ్",
+          soil: "నేల విశ్లేషణ",
+          weather: "వాతావరణం & వర్షం",
+          stress: "పంట ఒత్తిడి గుర్తింపు",
+          calc: "ఎరువులు & నీటి కాలిక్యులేటర్",
+          advisory: "రైతు సలహా",
+          fleet: "రైతు క్షేత్రాలు",
+          alerts: "హెచ్చరికలు",
+          reports: "నివేదికలు",
+          settings: "సెట్టింగులు"
+        },
+        kpi: {
+          farms: "పర్యవేక్షించే క్షేత్రాలు",
+          sensors: "క్రియాశీల సెన్సార్లు",
+          moisture: "సగటు తేమ శాతం",
+          temp: "సగటు ఉష్ణోగ్రత",
+          ph: "నేల pH",
+          stress: "పంట ఒత్తిడి స్థితి",
+          rain: "వర్ష సంభావ్యత",
+          pump: "మోటారు స్థితి"
+        },
+        buttons: {
+          addFarm: "క్షేత్రం జోడించు",
+          calculate: "లెక్కించు",
+          uploadCsv: "CSV అప్‌లోడ్",
+          downloadCsv: "CSV డౌన్‌లోడ్",
+          printPdf: "PDF ప్రింట్",
+          listenVoice: "వాయిస్ సలహా వినండి",
+          stopVoice: "ఆపు",
+          acknowledge: "గుర్తించండి"
+        }
+      },
+      Kannada: {
+        tagline: "ಸೆನ್ಸರ್ ಮಾಪನ ಒಳಗೆ, ಕ್ರಿಯಾತ್ಮಕ ಕೃಷಿ ಸಲಹೆ ಹೊರಗೆ.",
+        nav: {
+          dashboard: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+          soil: "ಮಣ್ಣಿನ ವಿಶ್ಲೇಷಣೆ",
+          weather: "ಹವಾಮಾನ & ಮಳೆ ಅಪಾಯ",
+          stress: "ಬೆಳೆ ಒತ್ತಡ ಪತ್ತೆ",
+          calc: "ಗೊಬ್ಬರ & ನೀರಾವರಿ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+          advisory: "ರೈತ ಸಲಹೆ",
+          fleet: "ತೋಟ ನಿರ್ವಹಣೆ",
+          alerts: "ಎಚ್ಚರಿಕೆಗಳು",
+          reports: "ವರದಿಗಳು",
+          settings: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+        },
+        kpi: {
+          farms: "ಮೇಲ್ವಿಚಾರಣೆ ತೋಟಗಳು",
+          sensors: "ಸಕ್ರಿಯ ಸೆನ್ಸರ್‌ಗಳು",
+          moisture: "ಸರಾಸರಿ ತೇವಾಂಶ",
+          temp: "ಸರಾಸರಿ ತಾಪಮಾನ",
+          ph: "ಮಣ್ಣಿನ pH",
+          stress: "ಬೆಳೆ ಒತ್ತಡ ಸ್ಥಿತಿ",
+          rain: "ಮಳೆ ಸಾಧ್ಯತೆ",
+          pump: "ಮೋಟಾರ್ ಸ್ಥಿತಿ"
+        },
+        buttons: {
+          addFarm: "ತೋಟ ಸೇರಿಸಿ",
+          calculate: "ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ",
+          uploadCsv: "CSV ಅಪ್‌ಲೋಡ್",
+          downloadCsv: "CSV ಡೌನ್‌ಲೋಡ್",
+          printPdf: "PDF ಮುದ್ರಿಸಿ",
+          listenVoice: "ಧ್ವನಿ ಸಲಹೆ ಕೇಳಿ",
+          stopVoice: "ನಿಲ್ಲಿಸಿ",
+          acknowledge: "ಖಚಿತಪಡಿಸಿ"
+        }
+      },
+      Malayalam: {
+        tagline: "സെൻസർ വിവരങ്ങൾ ഉള്ളിലേക്ക്, കൃത്യമായ കൃഷി ഉപദേശം പുറത്തേക്ക്.",
+        nav: {
+          dashboard: "ഡാഷ്‌ബോർഡ്",
+          soil: "മണ്ണ് പരിശോധന",
+          weather: "കാലാവസ്ഥ & മഴ സാധ്യത",
+          stress: "വിള സമ്മർദ്ദം",
+          calc: "വളവും നനയും കാൽക്കുലേറ്റർ",
+          advisory: "കർഷക ഉപദേശം",
+          fleet: "ഫാം മാനേജ്മെന്റ്",
+          alerts: "മുന്നറിയിപ്പുകൾ",
+          reports: "റിപ്പോർട്ടുകൾ",
+          settings: "ക്രമീകരണങ്ങൾ"
+        },
+        kpi: {
+          farms: "നിരീക്ഷിക്കുന്ന ഫാമുകൾ",
+          sensors: "സജീവ സെൻസറുകൾ",
+          moisture: "ശരാശരി ഈർപ്പം",
+          temp: "ശരാശരി താപനില",
+          ph: "മണ്ണ് pH നില",
+          stress: "വിള സമ്മർദ്ദാവസ്ഥ",
+          rain: "മഴ സാധ്യത",
+          pump: "മോട്ടോർ അവസ്ഥ"
+        },
+        buttons: {
+          addFarm: "ഫാം ചേർക്കുക",
+          calculate: "കണക്കുകൂട്ടുക",
+          uploadCsv: "CSV അപ്‌ലോഡ്",
+          downloadCsv: "CSV ഡൗൺലോഡ്",
+          printPdf: "PDF പ്രിന്റ്",
+          listenVoice: "ശബ്ദ സന്ദേശം കേൾക്കുക",
+          stopVoice: "നിർത്തുക",
+          acknowledge: "സ്ഥിരീകരിക്കുക"
+        }
+      }
+    };
+
+    // -------------------------------------------------------------
+    // 2. Global State Stores
+    // -------------------------------------------------------------
+    let currentTab = "dashboard";
+    let currentLang = "English";
+    let selectedFarmId = "FARM-001";
+    let activeSoilMetric = "moisture";
+    let isVoicePlaying = false;
+
+    let farmsData = [
+      {
+        id: "FARM-001",
+        name: "Green Valley Precision Plot",
+        location: "Karnal, Haryana",
+        crop: "tomato",
+        variety: "Arka Rakshak",
+        area_acres: 4.5,
+        soil_type: "Loamy Sand",
+        growth_stage: "Fruit Development",
+        status: "online",
+        mode: "demo",
+        telemetry: { moisture: 32.4, temperature: 28.6, ph: 6.4, N: 45.0, P: 18.0, K: 35.0, ec: 1.25, water_flow: 2.3, pump: "STANDBY", stress_score: 58, stress_cat: "Moderate Stress" }
+      },
+      {
+        id: "FARM-002",
+        name: "Punjab Delta Rice Nursery",
+        location: "Ludhiana, Punjab",
+        crop: "rice",
+        variety: "PR-126 Basmati",
+        area_acres: 8.0,
+        soil_type: "Clay Loam",
+        growth_stage: "Tillering Stage",
+        status: "online",
+        mode: "demo",
+        telemetry: { moisture: 68.5, temperature: 24.2, ph: 6.8, N: 78.0, P: 42.0, K: 40.0, ec: 1.05, water_flow: 0.0, pump: "OFF", stress_score: 18, stress_cat: "Healthy" }
+      },
+      {
+        id: "FARM-003",
+        name: "Deccan Basin Cotton Estate",
+        location: "Warangal, Telangana",
+        crop: "cotton",
+        variety: "Bt Cotton Bollgard II",
+        area_acres: 12.0,
+        soil_type: "Black Cotton Soil",
+        growth_stage: "Flowering Stage",
+        status: "online",
+        mode: "demo",
+        telemetry: { moisture: 24.5, temperature: 33.8, ph: 7.4, N: 38.0, P: 14.0, K: 28.0, ec: 1.82, water_flow: 4.1, pump: "ACTIVE", stress_score: 78, stress_cat: "Severe Stress" }
+      },
+      {
+        id: "FARM-004",
+        name: "Kaveri Agro Maize Zone",
+        location: "Thanjavur, Tamil Nadu",
+        crop: "maize",
+        variety: "CoHM-6 Hybrid",
+        area_acres: 5.0,
+        soil_type: "Alluvial Loam",
+        growth_stage: "Vegetative Stage",
+        status: "online",
+        mode: "live",
+        telemetry: { moisture: 44.0, temperature: 27.5, ph: 6.7, N: 62.0, P: 31.0, K: 34.0, ec: 1.18, water_flow: 0.0, pump: "OFF", stress_score: 34, stress_cat: "Mild Stress" }
+      }
+    ];
+
+    let alertsData = [
+      { id: "ALT-101", farm: "Deccan Basin Cotton Estate", type: "Low Soil Moisture", priority: "Critical", message: "Soil moisture dropped to 24.5% (Threshold: 35%). Severe root drought stress.", time: "12 mins ago", ack: false },
+      { id: "ALT-102", farm: "Deccan Basin Cotton Estate", type: "High Soil Temperature", priority: "Warning", message: "Soil temperature reached 33.8°C at 30cm depth. Root metabolic strain.", time: "45 mins ago", ack: false },
+      { id: "ALT-103", farm: "Green Valley Precision Plot", type: "Nutrient Deficiency", priority: "Warning", message: "Phosphorus level at 18 mg/kg is 60% below target for fruit expansion.", time: "2 hours ago", ack: false },
+      { id: "ALT-104", farm: "Punjab Delta Rice Nursery", type: "Heavy Rainfall Warning", priority: "Information", message: "Precipitation probability 78% in next 48h. Postpone urea top dressing.", time: "4 hours ago", ack: true }
+    ];
+
+    let telemetryHistory = [
+      { day: "Day 1", date: "Oct 24", moisture: 49.2, temperature: 26.2, ph: 6.64, ec: 1.45, N: 78.2, P: 23.4, K: 38.6, rainfall: 5.0 },
+      { day: "Day 2", date: "Oct 25", moisture: 46.4, temperature: 26.6, ph: 6.60, ec: 1.40, N: 76.0, P: 22.5, K: 38.0, rainfall: 0.0 },
+      { day: "Day 3", date: "Oct 26", moisture: 43.6, temperature: 27.0, ph: 6.56, ec: 1.35, N: 73.8, P: 21.6, K: 37.4, rainfall: 0.0 },
+      { day: "Day 4", date: "Oct 27", moisture: 40.8, temperature: 27.4, ph: 6.52, ec: 1.30, N: 71.6, P: 20.7, K: 36.8, rainfall: 0.0 },
+      { day: "Day 5", date: "Oct 28", moisture: 38.0, temperature: 27.8, ph: 6.48, ec: 1.25, N: 69.4, P: 19.8, K: 36.2, rainfall: 0.0 },
+      { day: "Day 6", date: "Oct 29", moisture: 35.2, temperature: 28.2, ph: 6.44, ec: 1.20, N: 67.2, P: 18.9, K: 35.6, rainfall: 0.0 },
+      { day: "Day 7", date: "Oct 30", moisture: 32.4, temperature: 28.6, ph: 6.40, ec: 1.25, N: 45.0, P: 18.0, K: 35.0, rainfall: 0.0 }
+    ];
+
+    // -------------------------------------------------------------
+    // 3. UI Navigation Builder
+    // -------------------------------------------------------------
+    const NAV_ITEMS = [
+      { id: "dashboard", icon: "📊", key: "dashboard" },
+      { id: "soil", icon: "🌱", key: "soil" },
+      { id: "weather", icon: "⛅", key: "weather" },
+      { id: "stress", icon: "⚠️", key: "stress" },
+      { id: "calc", icon: "🧮", key: "calc" },
+      { id: "advisory", icon: "💬", key: "advisory" },
+      { id: "fleet", icon: "🚜", key: "fleet" },
+      { id: "alerts", icon: "🔔", key: "alerts" },
+      { id: "reports", icon: "📑", key: "reports" },
+      { id: "settings", icon: "⚙️", key: "settings" }
+    ];
+
+    function buildNavigation() {
+      const navList = document.getElementById("nav-list");
+      const unackAlerts = alertsData.filter(a => !a.ack).length;
+      const dict = I18N[currentLang] || I18N.English;
+
+      navList.innerHTML = NAV_ITEMS.map(item => {
+        const isActive = currentTab === item.id;
+        const label = dict.nav[item.key] || item.id;
+        const badgeHtml = (item.id === "alerts" && unackAlerts > 0) ? `<span class="nav-badge">${unackAlerts}</span>` : "";
+        return `
+          <button class="nav-item ${isActive ? 'active' : ''}" onclick="switchTab('${item.id}')">
+            <div class="nav-item-content">
+              <span>${item.icon}</span>
+              <span>${label}</span>
+            </div>
+            ${badgeHtml}
+          </button>
+        `;
+      }).join("");
+
+      // Update Header Text
+      document.getElementById("page-title").innerText = dict.nav[currentTab] || currentTab.toUpperCase();
+      document.getElementById("lbl-header-badge").innerText = dict.tagline;
+      document.getElementById("lbl-btn-add-farm").innerText = dict.buttons.addFarm;
+
+      // Populate Farm Dropdown
+      const farmDropdown = document.getElementById("farm-dropdown");
+      farmDropdown.innerHTML = farmsData.map(f => `
+        <option value="${f.id}" ${f.id === selectedFarmId ? 'selected' : ''}>
+          ${f.name} (${f.crop.toUpperCase()})
+        </option>
+      `).join("");
+    }
+
+    function switchTab(tabId) {
+      currentTab = tabId;
+      buildNavigation();
+      renderView();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function changeLanguage(newLang) {
+      currentLang = newLang;
+      buildNavigation();
+      renderView();
+    }
+
+    function selectFarm(farmId) {
+      selectedFarmId = farmId;
+      renderView();
+    }
+
+    // -------------------------------------------------------------
+    // 4. SVG Line Chart Generator
+    // -------------------------------------------------------------
+    function renderSvgLineChart(data, metricKey, label, color = "#059669", unit = "%") {
+      const values = data.map(d => Number(d[metricKey] || 0));
+      const minVal = Math.min(...values);
+      const maxVal = Math.max(...values);
+      const range = (maxVal - minVal) || 1;
+
+      const width = 740;
+      const height = 240;
+      const padX = 45;
+      const padY = 30;
+
+      const points = data.map((d, i) => {
+        const x = padX + (i / (data.length - 1)) * (width - padX * 2);
+        const normY = (Number(d[metricKey] || 0) - minVal) / range;
+        const y = height - padY - normY * (height - padY * 2);
+        return { x, y, val: d[metricKey], label: d.day || d.date };
+      });
+
+      const pathD = points.reduce((acc, p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`), "");
+      const areaD = `${pathD} L ${points[points.length-1].x} ${height - padY} L ${points[0].x} ${height - padY} Z`;
+
+      const gridLines = [0, 0.25, 0.5, 0.75, 1.0].map(s => {
+        const y = height - padY - s * (height - padY * 2);
+        const val = (minVal + s * range).toFixed(1);
+        return `
+          <line x1="${padX}" y1="${y}" x2="${width - padX}" y2="${y}" stroke="#f1f5f9" stroke-dasharray="4 4" stroke-width="1"/>
+          <text x="${padX - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#94a3b8" font-family="sans-serif">${val}</text>
+        `;
+      }).join("");
+
+      const pointCircles = points.map((p, idx) => `
+        <circle cx="${p.x}" cy="${p.y}" r="5" fill="#ffffff" stroke="${color}" stroke-width="2.5"/>
+        <text x="${p.x}" y="${height - 8}" text-anchor="middle" font-size="11" fill="#64748b" font-weight="600">${p.label}</text>
+      `).join("");
+
+      return `
+        <div class="chart-container">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 13px; font-weight: 700; color: #475569;">${label}</span>
+            <span style="font-size: 11px; font-weight: 800; color: #065f46; background: #ecfdf5; padding: 2px 8px; border-radius: 9999px;">
+              Latest: ${values[values.length - 1]} ${unit}
+            </span>
+          </div>
+          <svg viewBox="0 0 ${width} ${height}" style="width: 100%; height: auto; overflow: visible;">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="${color}" stop-opacity="0.01"/>
+              </linearGradient>
+            </defs>
+            ${gridLines}
+            <path d="${areaD}" fill="url(#chartGrad)"/>
+            <path d="${pathD}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            ${pointCircles}
+          </svg>
+        </div>
+      `;
+    }
+
+    // -------------------------------------------------------------
+    // 5. Views Rendering Engine
+    // -------------------------------------------------------------
+    function renderView() {
+      const root = document.getElementById("view-root");
+      const currentFarm = farmsData.find(f => f.id === selectedFarmId) || farmsData[0];
+      const dict = I18N[currentLang] || I18N.English;
+
+      // ---------------------------------------------------------
+      // VIEW 1: DASHBOARD
+      // ---------------------------------------------------------
+      if (currentTab === "dashboard") {
+        const isDrought = currentFarm.telemetry.moisture < 35;
+        root.innerHTML = `
+          <!-- Irrigation Advisory Banner -->
+          <div class="irrigation-banner">
+            <div class="banner-left">
+              <div class="banner-icon">💧</div>
+              <div>
+                <span class="badge badge-green">AI Irrigation Advisory</span>
+                <h3 class="banner-headline">
+                  ${isDrought ? 'Immediate Micro-Irrigation Advised: 48,000 L / Acre Root Deficit' : 'Soil Moisture Optimal: Withhold Irrigation For Next 24 Hours'}
+                </h3>
+                <p class="banner-text">
+                  Plot: <b>${currentFarm.name}</b> (${currentFarm.crop.toUpperCase()}). Current root-zone moisture is ${currentFarm.telemetry.moisture}%. Weather indicates dry window (< 20% rain prob) favorable for early morning drip cycles.
+                </p>
+              </div>
+            </div>
+            <button class="btn-primary" style="background: #34d399; color: #082717; font-weight: 800;" onclick="switchTab('calc')">
+              <span>Open Dosage Calculator →</span>
+            </button>
+          </div>
+
+          <!-- 8 Primary KPIs -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.farms}</span><span>🚜</span></div>
+              <div class="kpi-value">${farmsData.length}</div>
+              <div class="kpi-sub">Across 4 Agricultural Zones</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.sensors}</span><span>🟢</span></div>
+              <div class="kpi-value">16 Nodes</div>
+              <div class="kpi-sub">100% Online & Telemetry Synced</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.moisture}</span><span>💧</span></div>
+              <div class="kpi-value">${currentFarm.telemetry.moisture}%</div>
+              <div class="kpi-sub" style="color: #d97706;">Target: 50% - 75% (${currentFarm.crop})</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.temp}</span><span>🌡️</span></div>
+              <div class="kpi-value">${currentFarm.telemetry.temperature}°C</div>
+              <div class="kpi-sub">Vegetative Thermal Band</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.ph}</span><span>🧪</span></div>
+              <div class="kpi-value">${currentFarm.telemetry.ph} pH</div>
+              <div class="kpi-sub">ISFET Probe Calibrated</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.stress}</span><span>⚠️</span></div>
+              <div class="kpi-value" style="font-size: 20px;">
+                <span class="badge ${currentFarm.telemetry.stress_score > 65 ? 'badge-red' : (currentFarm.telemetry.stress_score > 35 ? 'badge-yellow' : 'badge-green')}">
+                  ${currentFarm.telemetry.stress_cat}
+                </span>
+              </div>
+              <div class="kpi-sub">Score: ${currentFarm.telemetry.stress_score} / 100</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.rain}</span><span>⛅</span></div>
+              <div class="kpi-value">18%</div>
+              <div class="kpi-sub">Low Wash-Off Hazard</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label"><span>${dict.kpi.pump}</span><span>⚡</span></div>
+              <div class="kpi-value">${currentFarm.telemetry.pump}</div>
+              <div class="kpi-sub">Flow: ${currentFarm.telemetry.water_flow} LPM</div>
+            </div>
+          </div>
+
+          <!-- Charts & AI Summary -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h4 class="card-title">7-Day Soil Moisture Depletion Curve</h4>
+                  <div class="card-desc">Tracking daily volumetric water content (%) vs crop threshold</div>
+                </div>
+                <button class="btn-secondary" onclick="switchTab('soil')">Full Soil Analytics →</button>
+              </div>
+              ${renderSvgLineChart(telemetryHistory, "moisture", "Soil Moisture (%)", "#059669", "%")}
+            </div>
+
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div class="card-header">
+                  <div>
+                    <h4 class="card-title">🌾 Regional Farm Advisory</h4>
+                    <div class="card-desc">Language: <b>${currentLang}</b></div>
+                  </div>
+                </div>
+                <div style="padding: 14px; background: #ecfdf5; border: 1px solid #d1fae5; border-radius: 14px; margin-bottom: 14px;">
+                  <b style="color: #065f46; font-size: 13px;">${getLocalizedHeadline(currentFarm.crop, currentLang)}</b>
+                  <p style="font-size: 12px; color: #1e293b; margin-top: 6px; line-height: 1.5;">
+                    ${getLocalizedTodayAction(currentFarm.crop, currentLang)}
+                  </p>
+                </div>
+                <div style="padding: 12px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; font-size: 12px; color: #92400e;">
+                  <b>Weather Window:</b> Dry window for 72h. Safe for morning drip irrigation and DAP top-dressing.
+                </div>
+              </div>
+
+              <div style="margin-top: 16px; pt: 12px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="playVoiceAdvisory('${currentFarm.crop}')">
+                  <span>🔊 ${isVoicePlaying ? dict.buttons.stopVoice : dict.buttons.listenVoice}</span>
+                </button>
+                <button class="btn-secondary" style="padding: 8px 14px; font-size: 12px;" onclick="switchTab('advisory')">View All →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Alerts -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Recent Field Alerts & Sensor Triggers</h4>
+                <div class="card-desc">Continuous telemetry safety monitoring</div>
+              </div>
+              <button class="btn-secondary" onclick="switchTab('alerts')">Alerts Center (${alertsData.length})</button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+              ${alertsData.map(a => `
+                <div style="padding: 14px; border-radius: 14px; border: 1px solid ${a.ack ? '#e2e8f0' : (a.priority === 'Critical' ? '#fecdd3' : '#fef3c7')}; background: ${a.ack ? '#f8fafc' : (a.priority === 'Critical' ? '#fff1f2' : '#fffbeb')}; opacity: ${a.ack ? '0.6' : '1'};">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span class="badge ${a.priority === 'Critical' ? 'badge-red' : (a.priority === 'Warning' ? 'badge-yellow' : 'badge-blue')}">${a.priority}</span>
+                    <span style="font-size: 10px; color: #64748b;">${a.time}</span>
+                  </div>
+                  <b style="font-size: 13px; color: #0f172a;">${a.type}</b>
+                  <p style="font-size: 11px; color: #475569; margin-top: 4px; line-height: 1.4;">${a.message}</p>
+                  <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+                    <span style="color: #64748b;">${a.farm}</span>
+                    ${!a.ack ? `<button onclick="ackAlert('${a.id}')" style="color: #059669; font-weight: 700; background: none; border: none; cursor: pointer; text-decoration: underline;">${dict.buttons.acknowledge}</button>` : `<span style="color: #059669; font-weight: 700;">✓ Resolved</span>`}
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 2: 7-DAY SOIL ANALYTICS
+      // ---------------------------------------------------------
+      else if (currentTab === "soil") {
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">7-Day Soil Sensor Analytics & Trend Monitoring</h4>
+                <div class="card-desc">Analyzing moisture, temp, pH, EC, N, P, K for <b>${currentFarm.name}</b></div>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <label class="btn-primary" style="cursor: pointer;">
+                  <span>📤 ${dict.buttons.uploadCsv}</span>
+                  <input type="file" accept=".csv" onchange="handleCsvUpload(event)" style="display: none;"/>
+                </label>
+                <button class="btn-secondary" onclick="exportCsvData()">
+                  <span>📥 ${dict.buttons.downloadCsv}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Metric Filter Tabs -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+              ${[
+                { k: "moisture", l: "Moisture (%)", c: "#059669", u: "%" },
+                { k: "temperature", l: "Temperature (°C)", c: "#d97706", u: "°C" },
+                { k: "ph", l: "Soil pH", c: "#7c3aed", u: "pH" },
+                { k: "ec", l: "EC (mS/cm)", c: "#0284c7", u: "mS/cm" },
+                { k: "N", l: "Nitrogen (N)", c: "#10b981", u: "mg/kg" },
+                { k: "P", l: "Phosphorus (P)", c: "#db2777", u: "mg/kg" },
+                { k: "K", l: "Potassium (K)", c: "#eab308", u: "mg/kg" }
+              ].map(m => `
+                <button class="${activeSoilMetric === m.k ? 'btn-primary' : 'btn-secondary'}" style="padding: 7px 14px; font-size: 12px;" onclick="setSoilMetric('${m.k}')">
+                  ${m.l}
+                </button>
+              `).join("")}
+            </div>
+
+            ${renderSvgLineChart(telemetryHistory, activeSoilMetric, activeSoilMetric.toUpperCase(), "#059669")}
+
+            <!-- Daily Telemetry Table -->
+            <div class="table-container" style="margin-top: 24px;">
+              <h5 style="font-size: 14px; font-weight: 800; margin-bottom: 10px;">Daily Telemetry Record Log</h5>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Day / Date</th>
+                    <th>Moisture (%)</th>
+                    <th>Temp (°C)</th>
+                    <th>pH</th>
+                    <th>EC (mS/cm)</th>
+                    <th>Nitrogen (N)</th>
+                    <th>Phosphorus (P)</th>
+                    <th>Potassium (K)</th>
+                    <th>Rainfall</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${telemetryHistory.map(row => `
+                    <tr>
+                      <td><b>${row.day}</b> (${row.date})</td>
+                      <td style="color: #059669; font-weight: 700;">${row.moisture}%</td>
+                      <td>${row.temperature}°C</td>
+                      <td>${row.ph}</td>
+                      <td>${row.ec}</td>
+                      <td>${row.N}</td>
+                      <td>${row.P}</td>
+                      <td>${row.K}</td>
+                      <td style="color: #2563eb;">${row.rainfall} mm</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 3: WEATHER MONITORING
+      // ---------------------------------------------------------
+      else if (currentTab === "weather") {
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Live Weather Feeds & Rainfall Risk Analyzer</h4>
+                <div class="card-desc">Open-Meteo Synced | Location: <b>${currentFarm.location}</b></div>
+              </div>
+              <span class="badge badge-green">✓ Live API Active</span>
+            </div>
+
+            <div class="kpi-grid" style="margin-bottom: 20px;">
+              <div class="kpi-card">
+                <div class="kpi-label">Ambient Temperature</div>
+                <div class="kpi-value">28.6°C</div>
+                <div class="kpi-sub">Min: 19.5°C | Max: 31.0°C</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Relative Humidity</div>
+                <div class="kpi-value">62%</div>
+                <div class="kpi-sub">Optimal for Transpiration</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Rainfall Probability</div>
+                <div class="kpi-value" style="color: #2563eb;">18%</div>
+                <div class="kpi-sub">Low Risk Window</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-label">Wind Velocity</div>
+                <div class="kpi-value">8.5 km/h</div>
+                <div class="kpi-sub">Safe for Spraying</div>
+              </div>
+            </div>
+
+            <div style="padding: 20px; border-radius: 16px; background: #ecfdf5; border: 1px solid #a7f3d0; margin-bottom: 24px;">
+              <div style="display: flex; gap: 14px; align-items: flex-start;">
+                <span style="font-size: 28px;">⛅</span>
+                <div>
+                  <h5 style="font-size: 15px; font-weight: 800; color: #065f46;">Intelligent Rainfall Risk Assessment</h5>
+                  <p style="font-size: 13px; color: #1e293b; margin-top: 4px; line-height: 1.5;">
+                    Dry weather window confirmed for the next 72 hours (Precipitation probability &lt; 20%). 
+                    <b>Action:</b> Safe for scheduled drip irrigation and soil fertilizer top-dressing. No wash-off danger detected.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <h5 style="font-size: 14px; font-weight: 800; margin-bottom: 14px;">7-Day Meteorological Forecast Window</h5>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+              ${[
+                { day: "Today", date: "Oct 30", t: "31° / 20°", rain: "10%", cond: "Clear Sky" },
+                { day: "Sat", date: "Oct 31", t: "30° / 20°", rain: "15%", cond: "Sunny" },
+                { day: "Sun", date: "Nov 01", t: "29° / 19°", rain: "35%", cond: "Partly Cloudy" },
+                { day: "Mon", date: "Nov 02", t: "28° / 18°", rain: "70%", cond: "Showers" },
+                { day: "Tue", date: "Nov 03", t: "27° / 18°", rain: "55%", cond: "Scattered Rain" },
+                { day: "Wed", date: "Nov 04", t: "29° / 19°", rain: "20%", cond: "Clear" },
+                { day: "Thu", date: "Nov 05", t: "30° / 20°", rain: "10%", cond: "Sunny" }
+              ].map(w => `
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; text-align: center;">
+                  <b style="font-size: 13px; color: #1e293b; display: block;">${w.day}</b>
+                  <span style="font-size: 10px; color: #64748b;">${w.date}</span>
+                  <div style="font-size: 24px; margin: 8px 0;">🌤️</div>
+                  <b style="font-size: 12px; color: #0f172a;">${w.t}</b>
+                  <div style="font-size: 11px; color: #2563eb; font-weight: 700; margin-top: 4px;">💧 ${w.rain}</div>
+                  <div style="font-size: 10px; color: #64748b; margin-top: 2px;">${w.cond}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 4: CROP STRESS DETECTION
+      // ---------------------------------------------------------
+      else if (currentTab === "stress") {
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">AI Crop Stress Diagnostics & Root Cause Analysis</h4>
+                <div class="card-desc">Machine Learning stress engine trained on 2,200 agronomic multi-crop trials</div>
+              </div>
+              <span class="badge badge-yellow">Moderate Stress Triggered</span>
+            </div>
+
+            <!-- Interactive Sliders -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 24px;">
+              <div class="form-group">
+                <label class="form-label">Soil Moisture: <b id="val-moist">${currentFarm.telemetry.moisture}%</b></label>
+                <input type="range" class="range-slider" min="10" max="90" step="0.5" value="${currentFarm.telemetry.moisture}" oninput="updateStressMoisture(this.value)"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Soil Temperature: <b id="val-temp">${currentFarm.telemetry.temperature}°C</b></label>
+                <input type="range" class="range-slider" min="15" max="45" step="0.5" value="${currentFarm.telemetry.temperature}" oninput="document.getElementById('val-temp').innerText=this.value+'°C'"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Soil pH: <b>${currentFarm.telemetry.ph} pH</b></label>
+                <input type="range" class="range-slider" min="4.5" max="9.0" step="0.1" value="${currentFarm.telemetry.ph}"/>
+              </div>
+            </div>
+
+            <!-- Stress Diagnosis Cards -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div style="padding: 20px; border-radius: 16px; background: #fffbeb; border: 1px solid #fef3c7;">
+                <h5 style="font-size: 14px; font-weight: 800; color: #92400e; margin-bottom: 8px;">Detected Stress Factors</h5>
+                <ul style="font-size: 12px; color: #1e293b; line-height: 1.6; padding-left: 18px;">
+                  <li><b>Soil Moisture Deficit (38.2% contribution):</b> Moisture is 32.4% vs optimal threshold of 50-80%.</li>
+                  <li><b>Phosphorus Deficit (12.0% contribution):</b> P level at 18 mg/kg indicates root uptake exhaustion.</li>
+                  <li><b>Nitrogen Deficit (8.5% contribution):</b> N level at 45 mg/kg requires split top-dressing.</li>
+                </ul>
+              </div>
+
+              <div style="padding: 20px; border-radius: 16px; background: #ecfdf5; border: 1px solid #d1fae5;">
+                <h5 style="font-size: 14px; font-weight: 800; color: #065f46; margin-bottom: 8px;">Recommended Corrective Actions</h5>
+                <ul style="font-size: 12px; color: #1e293b; line-height: 1.6; padding-left: 18px;">
+                  <li>Initiate 2.5 hours of morning drip irrigation to deliver 48,000 L/acre.</li>
+                  <li>Incorporate 14.5 kg/acre DAP band placement close to the root zone.</li>
+                  <li>Apply organic biomass mulch along planting rows to conserve soil surface moisture.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 5: FERTILIZER & WATER CALCULATOR
+      // ---------------------------------------------------------
+      else if (currentTab === "calc") {
+        const acres = currentFarm.area_acres;
+        const totalWater = Math.round(acres * 48000);
+        const ureaKg = Math.round(acres * 26.5);
+        const dapKg = Math.round(acres * 38.0);
+        const mopKg = Math.round(acres * 5.0);
+
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Intelligent Agricultural Dosage Calculator</h4>
+                <div class="card-desc">FAO-56 Penman-Monteith Evapotranspiration and Standard Fertilizer Grade Chemistry</div>
+              </div>
+              <span class="badge badge-green">Crop: ${currentFarm.crop.toUpperCase()}</span>
+            </div>
+
+            <!-- Parameters Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px;">
+              <div class="form-group">
+                <label class="form-label">Farm Area (Acres)</label>
+                <input type="number" class="form-control" value="${acres}" id="calc-area" onchange="recalculateDosages()"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Crop Growth Stage</label>
+                <select class="form-control">
+                  <option>Fruit Development</option>
+                  <option>Vegetative</option>
+                  <option>Flowering</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Soil Texture</label>
+                <select class="form-control">
+                  <option>Loamy Sand</option>
+                  <option>Clay Loam</option>
+                  <option>Black Cotton</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Target Moisture</label>
+                <input type="text" class="form-control" value="65% Optimal" disabled/>
+              </div>
+            </div>
+
+            <!-- Output Cards: Irrigation & Fertilizer -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div class="card" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
+                <h5 style="font-size: 15px; font-weight: 800; color: #065f46; margin-bottom: 12px;">💧 Irrigation Dosage Plan</h5>
+                <div style="font-size: 26px; font-weight: 800; color: #065f46; margin-bottom: 6px;">
+                  ${totalWater.toLocaleString()} <span style="font-size: 14px; color: #64748b;">Litres</span>
+                </div>
+                <p style="font-size: 12px; color: #1e293b; line-height: 1.5;">
+                  • <b>Drip Runtime:</b> 2.4 Hours at standard 42,000 L/hr distribution.<br>
+                  • <b>Optimal Timing:</b> Early Morning (05:30 AM - 08:30 AM) to minimize midday evaporation.<br>
+                  • <b>Water-Saving Tip:</b> Apply organic mulch to reduce root-zone evaporation by up to 35%.
+                </p>
+              </div>
+
+              <div class="card" style="background: #fdf4ff; border: 1px solid #f5d0fe;">
+                <h5 style="font-size: 15px; font-weight: 800; color: #86198f; margin-bottom: 12px;">🌱 Commercial Fertilizer Requirements</h5>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center; margin-bottom: 12px;">
+                  <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #e9d5ff;">
+                    <div style="font-size: 10px; color: #64748b;">Urea (46% N)</div>
+                    <div style="font-size: 18px; font-weight: 800; color: #065f46;">${ureaKg} kg</div>
+                  </div>
+                  <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #e9d5ff;">
+                    <div style="font-size: 10px; color: #64748b;">DAP (18-46-0)</div>
+                    <div style="font-size: 18px; font-weight: 800; color: #db2777;">${dapKg} kg</div>
+                  </div>
+                  <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #e9d5ff;">
+                    <div style="font-size: 10px; color: #64748b;">MOP (60% K2O)</div>
+                    <div style="font-size: 18px; font-weight: 800; color: #d97706;">${mopKg} kg</div>
+                  </div>
+                </div>
+                <p style="font-size: 11px; color: #64748b; line-height: 1.4;">
+                  * Split Urea into 50% morning top-dressing and 50% after 7 days. Band DAP near root zone.
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 6: AI FARMER ADVISORY
+      // ---------------------------------------------------------
+      else if (currentTab === "advisory") {
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">AI-Powered Regional Farmer Advisory</h4>
+                <div class="card-desc">Synthesizing 7-day soil telemetry, weather risk, and agronomic guidelines in <b>${currentLang}</b></div>
+              </div>
+              <button class="btn-primary" onclick="playVoiceAdvisory('${currentFarm.crop}')">
+                <span>🔊 ${isVoicePlaying ? dict.buttons.stopVoice : dict.buttons.listenVoice}</span>
+              </button>
+            </div>
+
+            <!-- Regional Advisory Banner -->
+            <div style="padding: 22px; border-radius: 16px; background: linear-gradient(135deg, #0b3d22, #14532d); color: #ffffff; margin-bottom: 24px;">
+              <span class="badge" style="background: rgba(255,255,255,0.15); color: #a7f3d0; margin-bottom: 8px;">Actionable Advisory</span>
+              <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">${getLocalizedHeadline(currentFarm.crop, currentLang)}</h3>
+              <p style="font-size: 13px; color: #d1fae5; margin-top: 8px; line-height: 1.6;">
+                ${getLocalizedTodayAction(currentFarm.crop, currentLang)}
+              </p>
+            </div>
+
+            <!-- Structured Advisory Cards -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <div class="card" style="background: #f8fafc;">
+                <div style="font-size: 11px; font-weight: 800; color: #e11d48; text-transform: uppercase;">High Priority</div>
+                <h5 style="font-size: 14px; font-weight: 800; margin: 6px 0;">Root-Zone Moisture Depletion</h5>
+                <p style="font-size: 12px; color: #475569; line-height: 1.5;">
+                  <b>Problem:</b> Moisture dropped to 32.4% over the last 3 days.<br>
+                  <b>Reason:</b> High evapotranspiration and zero rainfall.<br>
+                  <b>Action:</b> Initiate 2.5h morning drip irrigation (48,000 L/acre).<br>
+                  <b>Benefit:</b> Prevents blossom end rot and preserves fruit set yield by up to 28%.
+                </p>
+              </div>
+
+              <div class="card" style="background: #f8fafc;">
+                <div style="font-size: 11px; font-weight: 800; color: #d97706; text-transform: uppercase;">Medium Priority</div>
+                <h5 style="font-size: 14px; font-weight: 800; margin: 6px 0;">Phosphate Top-Dressing</h5>
+                <p style="font-size: 12px; color: #475569; line-height: 1.5;">
+                  <b>Problem:</b> Phosphorus level (18 mg/kg) is 60% below target.<br>
+                  <b>Reason:</b> Heavy vegetative intake during active growth.<br>
+                  <b>Action:</b> Incorporate 14.5 kg/acre DAP band placement.<br>
+                  <b>Benefit:</b> Accelerates root branching and ATP energy transfer.
+                </p>
+              </div>
+
+              <div class="card" style="background: #f8fafc;">
+                <div style="font-size: 11px; font-weight: 800; color: #2563eb; text-transform: uppercase;">Information</div>
+                <h5 style="font-size: 14px; font-weight: 800; margin: 6px 0;">Weather Window Opportunity</h5>
+                <p style="font-size: 12px; color: #475569; line-height: 1.5;">
+                  <b>Problem:</b> Stable dry ridge suppresses precipitation.<br>
+                  <b>Reason:</b> Rain probability &lt; 20% for 72 hours.<br>
+                  <b>Action:</b> Complete drip fertigation before Saturday afternoon.<br>
+                  <b>Benefit:</b> Zero fertilizer wash-off loss and maximum absorption.
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 7: FARM FLEET MANAGEMENT
+      // ---------------------------------------------------------
+      else if (currentTab === "fleet") {
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Farm & IoT Sensor Fleet Management</h4>
+                <div class="card-desc">Managing ${farmsData.length} monitored agricultural plots</div>
+              </div>
+              <button class="btn-primary" onclick="openAddFarmModal()">+ Add New Farm</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px;">
+              ${farmsData.map(f => `
+                <div class="card" style="border: 1px solid #cbd5e1;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+                    <div>
+                      <span class="badge ${f.mode === 'live' ? 'badge-green' : 'badge-blue'}">${f.mode === 'live' ? 'Live Hardware' : 'Demo Telemetry'}</span>
+                      <h4 style="font-size: 16px; font-weight: 800; margin-top: 4px;">${f.name}</h4>
+                      <span style="font-size: 12px; color: #64748b;">${f.location} (${f.area_acres} Acres)</span>
+                    </div>
+                    <button class="btn-secondary" style="padding: 4px 10px; font-size: 11px;" onclick="toggleFarmMode('${f.id}')">Toggle Mode</button>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; background: #f8fafc; padding: 10px; border-radius: 12px; text-align: center; margin: 10px 0; font-size: 11px;">
+                    <div><span style="color: #64748b; display: block;">Crop</span><b>${f.crop.toUpperCase()}</b></div>
+                    <div><span style="color: #64748b; display: block;">Stage</span><b>${f.growth_stage}</b></div>
+                    <div><span style="color: #64748b; display: block;">Soil</span><b>${f.soil_type}</b></div>
+                  </div>
+
+                  <div style="font-size: 11px; margin-top: 10px;">
+                    <b>Connected Sensors:</b> Moisture V1.2, Temperature NTC, Optical NPK, ISFET pH.
+                  </div>
+
+                  <div style="margin-top: 14px; pt: 10px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between;">
+                    <button class="btn-primary" style="padding: 6px 12px; font-size: 11px;" onclick="selectFarm('${f.id}'); switchTab('dashboard');">
+                      Select for Dashboard →
+                    </button>
+                    <button style="color: #e11d48; font-size: 11px; background: none; border: none; cursor: pointer;" onclick="deleteFarm('${f.id}')">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 8: ALERTS CENTER
+      // ---------------------------------------------------------
+      else if (currentTab === "alerts") {
+        root.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Alert & Notification Dispatch Center</h4>
+                <div class="card-desc">Triage priority telemetry triggers</div>
+              </div>
+              <span class="badge badge-green">${alertsData.length} Total Alerts</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              ${alertsData.map(a => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-radius: 14px; border: 1px solid ${a.ack ? '#e2e8f0' : (a.priority === 'Critical' ? '#fecdd3' : '#fef3c7')}; background: ${a.ack ? '#f8fafc' : (a.priority === 'Critical' ? '#fff1f2' : '#fffbeb')}; opacity: ${a.ack ? '0.6' : '1'};">
+                  <div>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 4px;">
+                      <span class="badge ${a.priority === 'Critical' ? 'badge-red' : (a.priority === 'Warning' ? 'badge-yellow' : 'badge-blue')}">${a.priority}</span>
+                      <b style="font-size: 13px;">${a.type}</b>
+                      <span style="font-size: 11px; color: #64748b;">• ${a.farm}</span>
+                    </div>
+                    <p style="font-size: 12px; color: #334155;">${a.message}</p>
+                    <span style="font-size: 10px; color: #94a3b8;">Logged: ${a.time}</span>
+                  </div>
+                  <div>
+                    ${!a.ack ? `<button class="btn-secondary" onclick="ackAlert('${a.id}')">Acknowledge</button>` : `<span style="color: #059669; font-size: 12px; font-weight: 700;">✓ Resolved</span>`}
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 9: REPORTS & EXPORT
+      // ---------------------------------------------------------
+      else if (currentTab === "reports") {
+        root.innerHTML = `
+          <div class="card no-print">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">Comprehensive Farm Telemetry Diagnostic Report</h4>
+                <div class="card-desc">Audit report generated for official hackathon presentation</div>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button class="btn-primary" onclick="window.print()">
+                  <span>🖨️ ${dict.buttons.printPdf}</span>
+                </button>
+                <button class="btn-secondary" onclick="exportCsvData()">
+                  <span>📥 ${dict.buttons.downloadCsv}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Printable Report Layout -->
+          <div id="printable-report" class="card" style="padding: 32px; border: 2px solid #cbd5e1; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <div style="border-bottom: 2px solid #065f46; padding-bottom: 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-start;">
+              <div>
+                <h2 style="font-size: 24px; font-weight: 800; color: #065f46;">AgriSense-X Farm Diagnostic Audit Report</h2>
+                <div style="font-size: 12px; color: #64748b; margin-top: 2px;">Autonomous IoT Telemetry & Actionable Regional Advisory</div>
+                <div style="font-size: 12px; color: #1e293b; margin-top: 6px;">Date: <b>${new Date().toLocaleString()}</b></div>
+              </div>
+              <div style="text-align: right;">
+                <span class="badge badge-green">OFFICIAL FARM AUDIT</span>
+                <div style="font-size: 11px; color: #64748b; margin-top: 6px;">ID: ${currentFarm.id}</div>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; background: #f8fafc; padding: 14px; border-radius: 12px; font-size: 12px; margin-bottom: 20px;">
+              <div><span style="color: #64748b; display: block;">Farm:</span><b>${currentFarm.name}</b></div>
+              <div><span style="color: #64748b; display: block;">Location:</span><b>${currentFarm.location}</b></div>
+              <div><span style="color: #64748b; display: block;">Crop:</span><b>${currentFarm.crop.toUpperCase()} (${currentFarm.variety})</b></div>
+              <div><span style="color: #64748b; display: block;">Area:</span><b>${currentFarm.area_acres} Acres</b></div>
+            </div>
+
+            <h5 style="font-size: 13px; font-weight: 800; color: #065f46; margin-bottom: 8px;">1. Soil Telemetry Snapshot</h5>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; font-size: 12px;">
+              <div>Moisture: <b>${currentFarm.telemetry.moisture}%</b></div>
+              <div>Temp: <b>${currentFarm.telemetry.temperature}°C</b></div>
+              <div>pH: <b>${currentFarm.telemetry.ph} pH</b></div>
+              <div>Status: <b style="color: #d97706;">${currentFarm.telemetry.stress_cat}</b></div>
+            </div>
+
+            <h5 style="font-size: 13px; font-weight: 800; color: #065f46; margin-bottom: 8px;">2. Prescribed Dosage Plans</h5>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; font-size: 12px;">
+              <div style="padding: 12px; background: #ecfdf5; border-radius: 10px;">
+                <b>Irrigation:</b> 48,000 L / Acre (${Math.round(currentFarm.area_acres * 48000).toLocaleString()} Litres Total via early morning drip).
+              </div>
+              <div style="padding: 12px; background: #fdf4ff; border-radius: 10px;">
+                <b>Fertilizer:</b> Urea: ${Math.round(currentFarm.area_acres * 26.5)} kg | DAP: ${Math.round(currentFarm.area_acres * 38.0)} kg | MOP: ${Math.round(currentFarm.area_acres * 5.0)} kg.
+              </div>
+            </div>
+
+            <h5 style="font-size: 13px; font-weight: 800; color: #065f46; margin-bottom: 8px;">3. AI Advisory (${currentLang})</h5>
+            <div style="padding: 14px; background: #065f46; color: #ffffff; border-radius: 12px; font-size: 12px; line-height: 1.5;">
+              <b>${getLocalizedHeadline(currentFarm.crop, currentLang)}</b><br>
+              ${getLocalizedTodayAction(currentFarm.crop, currentLang)}
+            </div>
+
+            <div style="margin-top: 24px; pt: 12px; border-top: 1px solid #cbd5e1; display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8;">
+              <span>Verified by AgriSense-X Autonomous Precision Engine</span>
+              <span>Verification ID: AGR-${Date.now().toString(16).toUpperCase()}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // ---------------------------------------------------------
+      // VIEW 10: SETTINGS
+      // ---------------------------------------------------------
+      else if (currentTab === "settings") {
+        root.innerHTML = `
+          <div class="card" style="max-width: 720px;">
+            <div class="card-header">
+              <div>
+                <h4 class="card-title">System Settings & Calibration</h4>
+                <div class="card-desc">Preferences and sensor threshold parameters</div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="form-group">
+                <label class="form-label">Temperature Unit</label>
+                <select class="form-control"><option>Celsius (°C)</option><option>Fahrenheit (°F)</option></select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Critical Soil Moisture Alarm (%)</label>
+                <input type="range" class="range-slider" min="15" max="45" value="30"/>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Meteorological Provider</label>
+                <input type="text" class="form-control" value="Open-Meteo Public API (Zero Key Required)" disabled/>
+              </div>
+              <button class="btn-primary" style="align-self: flex-start; margin-top: 10px;" onclick="alert('Settings saved successfully!')">
+                Save Preferences
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // 6. Action Handlers & Localization Helpers
+    // -------------------------------------------------------------
+    function setSoilMetric(metric) {
+      activeSoilMetric = metric;
+      renderView();
+    }
+
+    function ackAlert(alertId) {
+      const a = alertsData.find(item => item.id === alertId);
+      if (a) a.ack = true;
+      buildNavigation();
+      renderView();
+    }
+
+    function toggleFarmMode(farmId) {
+      const f = farmsData.find(item => item.id === farmId);
+      if (f) f.mode = f.mode === 'live' ? 'demo' : 'live';
+      renderView();
+    }
+
+    function deleteFarm(farmId) {
+      if (confirm("Remove farm from fleet?")) {
+        farmsData = farmsData.filter(f => f.id !== farmId);
+        if (selectedFarmId === farmId) selectedFarmId = farmsData[0]?.id || "";
+        buildNavigation();
+        renderView();
+      }
+    }
+
+    function updateStressMoisture(val) {
+      document.getElementById('val-moist').innerText = val + '%';
+      const f = farmsData.find(item => item.id === selectedFarmId);
+      if (f) f.telemetry.moisture = parseFloat(val);
+    }
+
+    function recalculateDosages() {
+      const val = parseFloat(document.getElementById('calc-area').value) || 1.0;
+      const f = farmsData.find(item => item.id === selectedFarmId);
+      if (f) f.area_acres = val;
+      renderView();
+    }
+
+    function handleCsvUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const text = evt.target.result;
+        const lines = text.split('\n').filter(l => l.trim().length > 0);
+        if (lines.length > 1) {
+          alert(`Successfully parsed ${lines.length - 1} telemetry records from ${file.name}! Updated 7-day soil analytics.`);
+          renderView();
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function exportCsvData() {
+      let csv = "Day,Date,Moisture,Temperature,pH,EC,Nitrogen,Phosphorus,Potassium,Rainfall\n";
+      telemetryHistory.forEach(r => {
+        csv += `${r.day},${r.date},${r.moisture},${r.temperature},${r.ph},${r.ec},${r.N},${r.P},${r.K},${r.rainfall}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', `${selectedFarmId}_7day_telemetry.csv`);
+      a.click();
+    }
+
+    function playVoiceAdvisory(crop) {
+      if (!('speechSynthesis' in window)) {
+        alert("Speech synthesis is not supported on this browser.");
+        return;
+      }
+      if (isVoicePlaying) {
+        window.speechSynthesis.cancel();
+        isVoicePlaying = false;
+        renderView();
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const text = getLocalizedTodayAction(crop, currentLang);
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.onend = () => { isVoicePlaying = false; renderView(); };
+      utterance.onerror = () => { isVoicePlaying = false; renderView(); };
+      isVoicePlaying = true;
+      renderView();
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function getLocalizedHeadline(crop, lang) {
+      const cropMap = {
+        tomato: { Tamil: "தக்காளி", Hindi: "टमाटर", Telugu: "టమోటా", Kannada: "ಟೊಮೆಟೊ", Malayalam: "തക്കാളി", English: "Tomato" },
+        rice: { Tamil: "நெல்", Hindi: "धान", Telugu: "వరి", Kannada: "ಭತ್ತ", Malayalam: "നെല്ല്", English: "Rice" },
+        cotton: { Tamil: "பருத்தி", Hindi: "कपास", Telugu: "పత్తి", Kannada: "ಹತ್ತಿ", Malayalam: "പരുത്തി", English: "Cotton" },
+        maize: { Tamil: "மக்காச்சோளம்", Hindi: "मक्का", Telugu: "మొక్కజొన్న", Kannada: "ಮೆಕ್ಕೆಜೋಳ", Malayalam: "ചോളം", English: "Maize" }
+      };
+      const c = cropMap[crop] || cropMap.tomato;
+      const cName = c[lang] || c.English;
+
+      if (lang === "Tamil") return `🌾 விவசாய ஆலோசனை: ${cName} பயிரில் மிதமான அழுத்தம்`;
+      if (lang === "Hindi") return `🌾 कृषि परामर्श: ${cName} में मध्यम तनाव`;
+      if (lang === "Telugu") return `🌾 రైతు సలహా: ${cName} పంటలో మధ్యస్థ ఒత్తిడి`;
+      if (lang === "Kannada") return `🌾 ರೈತ ಸಲಹೆ: ${cName} ಬೆಳೆಯಲ್ಲಿ ಮಧ್ಯಮ ಒತ್ತಡ`;
+      if (lang === "Malayalam") return `🌾 കർഷക ഉപദേശം: ${cName} വിളയിൽ മിതമായ സമ്മർദ്ദം`;
+      return `🌾 Actionable Farm Advisory: Moderate Stress in ${cName}`;
+    }
+
+    function getLocalizedTodayAction(crop, lang) {
+      if (lang === "Tamil") {
+        return "இன்றைய முக்கிய பணி: ஏக்கருக்கு 15.0 மி.மீ (45,000 லிட்டர்) பாசனம் சொட்டு நீர் மூலம் செய்யவும். ஏக்கருக்கு 25 கிலோ யூரியா மற்றும் 15 கிலோ டிஏபி இடவும். மழைக்கு முன் உரம் தூவ வேண்டாம்.";
+      }
+      if (lang === "Hindi") {
+        return "आज का जरूरी कार्य: खेत में 15.0 मिमी (45,000 लीटर/एकड़) सिंचाई ड्रिप विधि से करें। प्रति एकड़ 25 किग्रा यूरिया और 15 किग्रा डीएपी जड़ के पास डालें। बिना नमी के रासायनिक खाद न डालें।";
+      }
+      if (lang === "Telugu") {
+        return "ఈరోజు చేయవలసిన పనులు: ఎకరానికి 15 మి.మీ (45,000 లీటర్లు) డ్రిప్ ద్వారా తడి అందించండి. ఎకరానికి 25 కిలోల యూరియా, 15 కిలోల డీఏపీ వేయండి.";
+      }
+      if (lang === "Kannada") {
+        return "ಇಂದಿನ ಪ್ರಮುಖ ಕೆಲಸ: ಎಕರೆಗೆ 15 ಮಿ.ಮೀ (45,000 ಲೀಟರ್) ನೀರಾವರಿ ನೀಡಿ. ಎಕರೆಗೆ 25 ಕೆಜಿ ಯೂರಿಯಾ ಮತ್ತು 15 ಕೆಜಿ ಡಿಎಪಿ ಹಾಕಿ.";
+      }
+      if (lang === "Malayalam") {
+        return "ഇന്നത്തെ പ്രധാന പ്രവർത്തനം: ഏക്കറിന് 15 മി.മീ (45,000 ലിറ്റർ) നനയ്ക്കുക. ഏക്കറിന് 25 കിലോ യൂറിയയും 15 കിലോ ഡി.എ.പി.യും നൽകുക.";
+      }
+      return "Action Required Today: Apply 15.0 mm (45,000 L/acre) via drip irrigation and top-dress with 25 kg Urea and 15 kg DAP. Avoid broadcasting before rains.";
+    }
+
+    function openAddFarmModal() {
+      const modal = document.getElementById("modal-container");
+      modal.style.display = "flex";
+      modal.style.position = "fixed";
+      modal.style.inset = "0";
+      modal.style.background = "rgba(0,0,0,0.5)";
+      modal.style.zIndex = "50";
+      modal.style.alignItems = "center";
+      modal.style.justifyContent = "center";
+      modal.style.padding = "20px";
+
+      modal.innerHTML = `
+        <div style="background: #ffffff; border-radius: 20px; max-width: 440px; width: 100%; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+            <b style="font-size: 16px; color: #0f172a;">Register New Monitored Farm</b>
+            <button onclick="closeAddFarmModal()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #64748b;">✕</button>
+          </div>
+          <form onsubmit="submitAddFarm(event)" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="form-group">
+              <label class="form-label">Farm Name</label>
+              <input type="text" class="form-control" id="m-name" required placeholder="e.g. Kaveri Agro Plot"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location (District, State)</label>
+              <input type="text" class="form-control" id="m-loc" required value="Madurai, Tamil Nadu"/>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label class="form-label">Crop Type</label>
+                <select class="form-control" id="m-crop">
+                  <option value="tomato">Tomato</option>
+                  <option value="rice">Rice (Paddy)</option>
+                  <option value="cotton">Cotton</option>
+                  <option value="maize">Maize</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Area (Acres)</label>
+                <input type="number" class="form-control" id="m-acres" required value="4.0" step="0.5"/>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+              <button type="button" class="btn-secondary" onclick="closeAddFarmModal()">Cancel</button>
+              <button type="submit" class="btn-primary">Register Farm</button>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    function closeAddFarmModal() {
+      document.getElementById("modal-container").style.display = "none";
+    }
+
+    function submitAddFarm(e) {
+      e.preventDefault();
+      const name = document.getElementById("m-name").value;
+      const loc = document.getElementById("m-loc").value;
+      const crop = document.getElementById("m-crop").value;
+      const acres = parseFloat(document.getElementById("m-acres").value) || 2.0;
+
+      const newFarm = {
+        id: `FARM-00${farmsData.length + 1}`,
+        name: name,
+        location: loc,
+        crop: crop,
+        variety: "Hybrid V1",
+        area_acres: acres,
+        soil_type: "Loamy Sand",
+        growth_stage: "Vegetative",
+        status: "online",
+        mode: "demo",
+        telemetry: { moisture: 42.0, temperature: 27.0, ph: 6.5, N: 60, P: 28, K: 35, ec: 1.2, water_flow: 0.0, pump: "OFF", stress_score: 25, stress_cat: "Healthy" }
+      };
+
+      farmsData.push(newFarm);
+      selectedFarmId = newFarm.id;
+      closeAddFarmModal();
+      buildNavigation();
+      renderView();
+    }
+
+    // -------------------------------------------------------------
+    // 7. Initial Bootstrap
+    // -------------------------------------------------------------
+    window.addEventListener("DOMContentLoaded", function() {
+      buildNavigation();
+      renderView();
+    });
+
+    // In case DOM is already ready
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      buildNavigation();
+      renderView();
+    }
+  </script>
+</body>
+</html>

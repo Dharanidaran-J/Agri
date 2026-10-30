@@ -1,0 +1,860 @@
+{
+  "rice": {
+    "optimal_N": {
+      "min": 80,
+      "max": 100,
+      "target": 90
+    },
+    "optimal_P": {
+      "min": 35,
+      "max": 60,
+      "target": 47
+    },
+    "optimal_K": {
+      "min": 35,
+      "max": 45,
+      "target": 40
+    },
+    "optimal_temp": {
+      "min": 20,
+      "max": 27
+    },
+    "optimal_humidity": {
+      "min": 80,
+      "max": 85
+    },
+    "optimal_ph": {
+      "min": 5.0,
+      "max": 7.9
+    },
+    "optimal_rainfall": {
+      "min": 180,
+      "max": 300
+    },
+    "water_need_mm_day": 8.0,
+    "fertilizer_kg_acre": {
+      "urea": 90,
+      "dap": 47,
+      "mop": 40
+    }
+  },
+  "maize": {
+    "optimal_N": {
+      "min": 60,
+      "max": 100,
+      "target": 80
+    },
+    "optimal_P": {
+      "min": 35,
+      "max": 60,
+      "target": 47
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 18,
+      "max": 27
+    },
+    "optimal_humidity": {
+      "min": 55,
+      "max": 75
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 7.0
+    },
+    "optimal_rainfall": {
+      "min": 60,
+      "max": 110
+    },
+    "water_need_mm_day": 2.83,
+    "fertilizer_kg_acre": {
+      "urea": 80,
+      "dap": 47,
+      "mop": 20
+    }
+  },
+  "chickpea": {
+    "optimal_N": {
+      "min": 20,
+      "max": 60,
+      "target": 40
+    },
+    "optimal_P": {
+      "min": 55,
+      "max": 80,
+      "target": 67
+    },
+    "optimal_K": {
+      "min": 75,
+      "max": 85,
+      "target": 80
+    },
+    "optimal_temp": {
+      "min": 17,
+      "max": 21
+    },
+    "optimal_humidity": {
+      "min": 14,
+      "max": 20
+    },
+    "optimal_ph": {
+      "min": 6.0,
+      "max": 8.8
+    },
+    "optimal_rainfall": {
+      "min": 65,
+      "max": 95
+    },
+    "water_need_mm_day": 2.67,
+    "fertilizer_kg_acre": {
+      "urea": 40,
+      "dap": 67,
+      "mop": 80
+    }
+  },
+  "kidneybeans": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 55,
+      "max": 80,
+      "target": 67
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 15,
+      "max": 25
+    },
+    "optimal_humidity": {
+      "min": 18,
+      "max": 25
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 6.0
+    },
+    "optimal_rainfall": {
+      "min": 60,
+      "max": 150
+    },
+    "water_need_mm_day": 3.5,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 67,
+      "mop": 20
+    }
+  },
+  "pigeonpeas": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 55,
+      "max": 80,
+      "target": 67
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 18,
+      "max": 37
+    },
+    "optimal_humidity": {
+      "min": 30,
+      "max": 70
+    },
+    "optimal_ph": {
+      "min": 4.5,
+      "max": 7.5
+    },
+    "optimal_rainfall": {
+      "min": 90,
+      "max": 200
+    },
+    "water_need_mm_day": 4.83,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 67,
+      "mop": 20
+    }
+  },
+  "mothbeans": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 35,
+      "max": 60,
+      "target": 47
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 24,
+      "max": 32
+    },
+    "optimal_humidity": {
+      "min": 40,
+      "max": 65
+    },
+    "optimal_ph": {
+      "min": 3.5,
+      "max": 9.9
+    },
+    "optimal_rainfall": {
+      "min": 30,
+      "max": 75
+    },
+    "water_need_mm_day": 1.75,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 47,
+      "mop": 20
+    }
+  },
+  "mungbean": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 35,
+      "max": 60,
+      "target": 47
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 27,
+      "max": 30
+    },
+    "optimal_humidity": {
+      "min": 80,
+      "max": 90
+    },
+    "optimal_ph": {
+      "min": 6.2,
+      "max": 7.2
+    },
+    "optimal_rainfall": {
+      "min": 36,
+      "max": 60
+    },
+    "water_need_mm_day": 1.6,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 47,
+      "mop": 20
+    }
+  },
+  "blackgram": {
+    "optimal_N": {
+      "min": 20,
+      "max": 60,
+      "target": 40
+    },
+    "optimal_P": {
+      "min": 55,
+      "max": 80,
+      "target": 67
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 25,
+      "max": 35
+    },
+    "optimal_humidity": {
+      "min": 60,
+      "max": 70
+    },
+    "optimal_ph": {
+      "min": 6.5,
+      "max": 7.8
+    },
+    "optimal_rainfall": {
+      "min": 60,
+      "max": 75
+    },
+    "water_need_mm_day": 2.25,
+    "fertilizer_kg_acre": {
+      "urea": 40,
+      "dap": 67,
+      "mop": 20
+    }
+  },
+  "lentil": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 55,
+      "max": 80,
+      "target": 67
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 18,
+      "max": 30
+    },
+    "optimal_humidity": {
+      "min": 60,
+      "max": 70
+    },
+    "optimal_ph": {
+      "min": 5.9,
+      "max": 7.8
+    },
+    "optimal_rainfall": {
+      "min": 35,
+      "max": 55
+    },
+    "water_need_mm_day": 1.5,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 67,
+      "mop": 20
+    }
+  },
+  "pomegranate": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 5,
+      "max": 30,
+      "target": 17
+    },
+    "optimal_K": {
+      "min": 35,
+      "max": 45,
+      "target": 40
+    },
+    "optimal_temp": {
+      "min": 18,
+      "max": 25
+    },
+    "optimal_humidity": {
+      "min": 85,
+      "max": 95
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 7.2
+    },
+    "optimal_rainfall": {
+      "min": 102,
+      "max": 113
+    },
+    "water_need_mm_day": 3.58,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 17,
+      "mop": 40
+    }
+  },
+  "banana": {
+    "optimal_N": {
+      "min": 80,
+      "max": 120,
+      "target": 100
+    },
+    "optimal_P": {
+      "min": 70,
+      "max": 95,
+      "target": 82
+    },
+    "optimal_K": {
+      "min": 45,
+      "max": 55,
+      "target": 50
+    },
+    "optimal_temp": {
+      "min": 25,
+      "max": 30
+    },
+    "optimal_humidity": {
+      "min": 75,
+      "max": 85
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 6.5
+    },
+    "optimal_rainfall": {
+      "min": 90,
+      "max": 120
+    },
+    "water_need_mm_day": 3.5,
+    "fertilizer_kg_acre": {
+      "urea": 100,
+      "dap": 82,
+      "mop": 50
+    }
+  },
+  "mango": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 15,
+      "max": 40,
+      "target": 27
+    },
+    "optimal_K": {
+      "min": 25,
+      "max": 35,
+      "target": 30
+    },
+    "optimal_temp": {
+      "min": 27,
+      "max": 36
+    },
+    "optimal_humidity": {
+      "min": 45,
+      "max": 55
+    },
+    "optimal_ph": {
+      "min": 4.5,
+      "max": 7.0
+    },
+    "optimal_rainfall": {
+      "min": 89,
+      "max": 101
+    },
+    "water_need_mm_day": 3.17,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 27,
+      "mop": 30
+    }
+  },
+  "grapes": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 120,
+      "max": 145,
+      "target": 132
+    },
+    "optimal_K": {
+      "min": 195,
+      "max": 205,
+      "target": 200
+    },
+    "optimal_temp": {
+      "min": 8,
+      "max": 42
+    },
+    "optimal_humidity": {
+      "min": 80,
+      "max": 84
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 6.5
+    },
+    "optimal_rainfall": {
+      "min": 65,
+      "max": 75
+    },
+    "water_need_mm_day": 2.33,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 132,
+      "mop": 200
+    }
+  },
+  "watermelon": {
+    "optimal_N": {
+      "min": 80,
+      "max": 120,
+      "target": 100
+    },
+    "optimal_P": {
+      "min": 5,
+      "max": 30,
+      "target": 17
+    },
+    "optimal_K": {
+      "min": 45,
+      "max": 55,
+      "target": 50
+    },
+    "optimal_temp": {
+      "min": 24,
+      "max": 27
+    },
+    "optimal_humidity": {
+      "min": 80,
+      "max": 90
+    },
+    "optimal_ph": {
+      "min": 6.0,
+      "max": 7.0
+    },
+    "optimal_rainfall": {
+      "min": 40,
+      "max": 60
+    },
+    "water_need_mm_day": 1.67,
+    "fertilizer_kg_acre": {
+      "urea": 100,
+      "dap": 17,
+      "mop": 50
+    }
+  },
+  "muskmelon": {
+    "optimal_N": {
+      "min": 80,
+      "max": 120,
+      "target": 100
+    },
+    "optimal_P": {
+      "min": 5,
+      "max": 30,
+      "target": 17
+    },
+    "optimal_K": {
+      "min": 45,
+      "max": 55,
+      "target": 50
+    },
+    "optimal_temp": {
+      "min": 27,
+      "max": 30
+    },
+    "optimal_humidity": {
+      "min": 90,
+      "max": 95
+    },
+    "optimal_ph": {
+      "min": 6.0,
+      "max": 6.8
+    },
+    "optimal_rainfall": {
+      "min": 20,
+      "max": 30
+    },
+    "water_need_mm_day": 0.83,
+    "fertilizer_kg_acre": {
+      "urea": 100,
+      "dap": 17,
+      "mop": 50
+    }
+  },
+  "apple": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 120,
+      "max": 145,
+      "target": 132
+    },
+    "optimal_K": {
+      "min": 195,
+      "max": 205,
+      "target": 200
+    },
+    "optimal_temp": {
+      "min": 21,
+      "max": 24
+    },
+    "optimal_humidity": {
+      "min": 90,
+      "max": 95
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 6.5
+    },
+    "optimal_rainfall": {
+      "min": 100,
+      "max": 125
+    },
+    "water_need_mm_day": 3.75,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 132,
+      "mop": 200
+    }
+  },
+  "orange": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 5,
+      "max": 30,
+      "target": 17
+    },
+    "optimal_K": {
+      "min": 5,
+      "max": 15,
+      "target": 10
+    },
+    "optimal_temp": {
+      "min": 10,
+      "max": 35
+    },
+    "optimal_humidity": {
+      "min": 90,
+      "max": 95
+    },
+    "optimal_ph": {
+      "min": 6.0,
+      "max": 8.0
+    },
+    "optimal_rainfall": {
+      "min": 100,
+      "max": 120
+    },
+    "water_need_mm_day": 3.67,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 17,
+      "mop": 10
+    }
+  },
+  "papaya": {
+    "optimal_N": {
+      "min": 30,
+      "max": 70,
+      "target": 50
+    },
+    "optimal_P": {
+      "min": 45,
+      "max": 70,
+      "target": 57
+    },
+    "optimal_K": {
+      "min": 45,
+      "max": 55,
+      "target": 50
+    },
+    "optimal_temp": {
+      "min": 23,
+      "max": 44
+    },
+    "optimal_humidity": {
+      "min": 90,
+      "max": 95
+    },
+    "optimal_ph": {
+      "min": 6.5,
+      "max": 7.0
+    },
+    "optimal_rainfall": {
+      "min": 40,
+      "max": 250
+    },
+    "water_need_mm_day": 4.83,
+    "fertilizer_kg_acre": {
+      "urea": 50,
+      "dap": 57,
+      "mop": 50
+    }
+  },
+  "coconut": {
+    "optimal_N": {
+      "min": 0,
+      "max": 40,
+      "target": 20
+    },
+    "optimal_P": {
+      "min": 5,
+      "max": 30,
+      "target": 17
+    },
+    "optimal_K": {
+      "min": 25,
+      "max": 35,
+      "target": 30
+    },
+    "optimal_temp": {
+      "min": 25,
+      "max": 30
+    },
+    "optimal_humidity": {
+      "min": 90,
+      "max": 100
+    },
+    "optimal_ph": {
+      "min": 5.5,
+      "max": 6.5
+    },
+    "optimal_rainfall": {
+      "min": 130,
+      "max": 225
+    },
+    "water_need_mm_day": 5.92,
+    "fertilizer_kg_acre": {
+      "urea": 20,
+      "dap": 17,
+      "mop": 30
+    }
+  },
+  "cotton": {
+    "optimal_N": {
+      "min": 100,
+      "max": 140,
+      "target": 120
+    },
+    "optimal_P": {
+      "min": 35,
+      "max": 60,
+      "target": 47
+    },
+    "optimal_K": {
+      "min": 15,
+      "max": 25,
+      "target": 20
+    },
+    "optimal_temp": {
+      "min": 22,
+      "max": 26
+    },
+    "optimal_humidity": {
+      "min": 75,
+      "max": 85
+    },
+    "optimal_ph": {
+      "min": 5.8,
+      "max": 8.0
+    },
+    "optimal_rainfall": {
+      "min": 60,
+      "max": 100
+    },
+    "water_need_mm_day": 2.67,
+    "fertilizer_kg_acre": {
+      "urea": 120,
+      "dap": 47,
+      "mop": 20
+    }
+  },
+  "jute": {
+    "optimal_N": {
+      "min": 60,
+      "max": 100,
+      "target": 80
+    },
+    "optimal_P": {
+      "min": 35,
+      "max": 60,
+      "target": 47
+    },
+    "optimal_K": {
+      "min": 35,
+      "max": 45,
+      "target": 40
+    },
+    "optimal_temp": {
+      "min": 23,
+      "max": 27
+    },
+    "optimal_humidity": {
+      "min": 70,
+      "max": 90
+    },
+    "optimal_ph": {
+      "min": 6.0,
+      "max": 7.5
+    },
+    "optimal_rainfall": {
+      "min": 150,
+      "max": 200
+    },
+    "water_need_mm_day": 5.83,
+    "fertilizer_kg_acre": {
+      "urea": 80,
+      "dap": 47,
+      "mop": 40
+    }
+  },
+  "coffee": {
+    "optimal_N": {
+      "min": 80,
+      "max": 120,
+      "target": 100
+    },
+    "optimal_P": {
+      "min": 15,
+      "max": 40,
+      "target": 27
+    },
+    "optimal_K": {
+      "min": 25,
+      "max": 35,
+      "target": 30
+    },
+    "optimal_temp": {
+      "min": 23,
+      "max": 28
+    },
+    "optimal_humidity": {
+      "min": 50,
+      "max": 70
+    },
+    "optimal_ph": {
+      "min": 6.0,
+      "max": 7.5
+    },
+    "optimal_rainfall": {
+      "min": 115,
+      "max": 200
+    },
+    "water_need_mm_day": 5.25,
+    "fertilizer_kg_acre": {
+      "urea": 100,
+      "dap": 27,
+      "mop": 30
+    }
+  }
+}
